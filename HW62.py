@@ -45,12 +45,8 @@ def bar_chart_data(df,option,region):
         avg=np.average(values)
         master.append([state,avg])
     dfb=pd.DataFrame(master,columns=["State","Avg"])
-    st.dataframe(dfb)
     dfb1=pd.DataFrame(master,columns=["State","Avg"]).sort_values(by= "Avg", ascending=False).reset_index()
-    st.dataframe(dfb1)
-    # dfbmax=dfb.sort_values(by="Avg", ascending= False)
-
-
+  
     return dfb1
 def bar_chart(df,feat,reg):
     if feat=="Play Place":
@@ -106,7 +102,7 @@ def filter_by_zip_feature(state,feat):
             string= string + v+"s"+ " "
     s=string.split(" ")
     s.pop(-1)
-    print(s)
+
     if len(s)==4:
         s[1]=s[1].replace(s[1],s[1]+" and")
     string=""
