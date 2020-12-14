@@ -150,6 +150,11 @@ if page=="Filter Map":
     st.title("Find Mcdonalds by State with Feature Filters")
     st.sidebar.title("Map Filters: ")
     state=st.sidebar.text_input("Enter a State abbreviation","AL")
+    if state.upper() in REGIONS["All States"]:
+        pass
+    else:
+        st.sidebar.write("Please enter a valid abbreviation next time. Alabama will be used as default.")
+        state="AL"     
     pp=st.sidebar.checkbox("Play Place")
     dt=st.sidebar.checkbox("Drive-Through")
     wf=st.sidebar.checkbox("Free Wifi")
