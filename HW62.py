@@ -22,9 +22,9 @@ def preprocess_data():
             cleaned_zip = "0" + z
             df.at[index, 'zip'] = cleaned_zip
     df=df.drop(columns=["storeUrl"])
-    df.to_csv("mcdonalds_clean1.csv", sep=',', index=False)
     df["lat"]=df["Y"]
     df["lon"]=df["X"]
+    df.to_csv("mcdonalds_clean1.csv", sep=',', index=False)
 
 
 def bar_chart_data(df,option,region):
@@ -45,9 +45,13 @@ def bar_chart_data(df,option,region):
         avg=np.average(values)
         master.append([state,avg])
     dfb=pd.DataFrame(master,columns=["State","Avg"])
+    st.dataframe(dfb)
+    dfb1=pd.DataFrame(master,columns=["State","Avg"]).sort_values(by= "Avg", ascending=False).reset_index()
+    st.dataframe(dfb1)
+    # dfbmax=dfb.sort_values(by="Avg", ascending= False)
 
 
-    return dfb
+    return dfb1
 def bar_chart(df,feat,reg):
     if feat=="Play Place":
         col="playplace"
@@ -69,8 +73,7 @@ def bar_chart(df,feat,reg):
     plt.xlabel("State")
 
     plt.ylabel("%")
-    # datamax=data[["Avg", "State"]].sort_values("Avg", ascending = False).head(1)
-    # print(datamax)
+
 
 
     return plt
@@ -103,7 +106,7 @@ def filter_by_zip_feature(state,feat):
             string= string + v+"s"+ " "
     s=string.split(" ")
     s.pop(-1)
-
+    print(s)
     if len(s)==4:
         s[1]=s[1].replace(s[1],s[1]+" and")
     string=""
@@ -142,9 +145,9 @@ if page=="Barchart":
 
     st.header(f'States with the best Mcdonalds features')
     if feat == "Free Wifi":
-        st.write(f'Below is a bar graph of states that have the highest percentage of {feat} ')
+        st.write(f'Below is a bar graph of states that have the highest percent of {feat} ')
     else:
-         st.write(f'Below is a bar graph of states that have the highest percentage of {feat}s ')
+        st.write(f'Below is a bar graph of states that have the highest percent of {feat}s ')
 
     st.pyplot(bar_chart(df,feat,reg))
 if page=="Filter Map":
